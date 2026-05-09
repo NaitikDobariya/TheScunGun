@@ -43,18 +43,13 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     && rm -rf /var/lib/apt/lists/*
 
 # -----------------------------------------------------------------------
-# 6. Scun-Gun Specific: Cartographer, Abseil, & Protobuf fixes
+# 6. SCUN-GUN BRAIN: Pre-compiled Cartographer & 2D-to-3D Bridge Tools
+# Zero compiling required. This bypasses the RAM/Hanging issues entirely.
 # -----------------------------------------------------------------------
     RUN apt-get update && apt-get install -y --no-install-recommends \
-    libboost-iostreams-dev \
-    libboost-regex-dev \
-    libgoogle-glog-dev \
-    liblua5.3-dev \
-    libabsl-dev \
-    libprotobuf-dev \
-    protobuf-compiler \
-    libcairo2-dev \
-    google-mock \
+    ros-humble-cartographer \
+    ros-humble-cartographer-ros \
+    ros-humble-cartographer-rviz \
     ros-humble-laser-geometry \
     ros-humble-pcl-conversions \
     ros-humble-perception-pcl \

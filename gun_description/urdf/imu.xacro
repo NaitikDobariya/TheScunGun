@@ -1,0 +1,49 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <xacro:macro name="bno085_imu" params="parent *origin">
+  
+    <material name="black"> <color rgba="0.1 0.1 0.1 1"/> </material>
+    <material name="green"> <color rgba="0.0 0.8 0.0 1"/> </material>
+
+    <joint name="imu_box_joint" type="fixed">
+      <xacro:insert_block name="origin" />
+      <parent link="${parent}"/>
+      <child link="imu_box_base"/>
+    </joint>
+
+    <link name="imu_box_base">
+      <visual>
+        <origin xyz="0 0 0.015" rpy="0 0 0"/>
+        <geometry>
+          <box size="0.0677 0.0518 0.030"/>
+        </geometry>
+        <material name="black"/>
+      </visual>
+    </link>
+
+    <joint name="base_to_pcb_joint" type="fixed">
+      <parent link="imu_box_base"/>
+      <child link="imu_pcb"/>
+      <origin xyz="0 0 0.021" rpy="0 0 0"/>
+    </joint>
+
+    <link name="imu_pcb">
+      <visual>
+        <geometry>
+          <box size="0.02 0.02 0.002"/>
+        </geometry>
+        <material name="green"/>
+      </visual>
+    </link>
+
+    <joint name="pcb_to_sensor_joint" type="fixed">
+      <parent link="imu_pcb"/>
+      <child link="imu_link"/>
+      <origin xyz="0 0 0.001" rpy="0 0 0"/> 
+    </joint>
+
+    <link name="imu_link"/>
+
+  </xacro:macro>
+</robot>

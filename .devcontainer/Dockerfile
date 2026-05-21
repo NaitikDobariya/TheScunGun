@@ -46,7 +46,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 # 6. SCUN-GUN BRAIN: Pre-compiled Cartographer & 2D-to-3D Bridge Tools
 # Zero compiling required. This bypasses the RAM/Hanging issues entirely.
 # -----------------------------------------------------------------------
-    RUN apt-get update && apt-get install -y --no-install-recommends \
+RUN apt-get update && apt-get install -y --no-install-recommends \
     ros-humble-cartographer \
     ros-humble-cartographer-ros \
     ros-humble-cartographer-rviz \
@@ -56,6 +56,23 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     ros-humble-pointcloud-to-laserscan \
     && rm -rf /var/lib/apt/lists/*
 # -----------------------------------------------------------------------
+
+# -----------------------------------------------------------------------
+# 7. HARDWARE SENSORS: Python dependencies for IMU & Serial Comm
+# -----------------------------------------------------------------------
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    python3-serial \
+    && rm -rf /var/lib/apt/lists/*
+
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    python3-pip \
+    && rm -rf /var/lib/apt/lists/*
+
+RUN pip3 install --no-cache-dir --upgrade pip && \
+    pip3 install --no-cache-dir \
+    "numpy<2.0.0" \
+    scipy \
+    open3d
 
 # 5. User Management (Non-root user)
 ARG USERNAME=ros
